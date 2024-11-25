@@ -26,10 +26,11 @@ public class Cube : MonoBehaviour
         }
     }
 
-    public void Activate()
+    public void Activate(Vector3 position)
     {
         _isCollision = false;
         _visualizer.PaintDefault();
+        transform.position = position;
         gameObject.SetActive(true);
     }
 

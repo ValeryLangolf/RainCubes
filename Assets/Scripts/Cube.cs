@@ -8,8 +8,6 @@ public class Cube : MonoBehaviour
     [SerializeField] private float _minimumTimeLifeInSeconds;
     [SerializeField] private float _maximumTimeLifeInSeconds;
 
-    private const string TagName = "Platform";
-
     public event Action<Cube> Deactivated;
 
     public float TimeLife => UnityEngine.Random.Range(_minimumTimeLifeInSeconds, _maximumTimeLifeInSeconds);
@@ -19,7 +17,7 @@ public class Cube : MonoBehaviour
         if (_isCollision)
             return;
 
-        if(collision.gameObject.CompareTag(TagName))
+        if(collision.gameObject.TryGetComponent<Platform>(out _))
         {
             _isCollision = true;
             _visualizer.Repaint();

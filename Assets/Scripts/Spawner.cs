@@ -8,12 +8,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Cube _prefab;
     [SerializeField] private TargetPosition _minimum;
     [SerializeField] private TargetPosition _maximum;
-    [SerializeField, Min(0.01f)] private float _delayInSeconds;
     [SerializeField] private int _maxSizePool;
     [SerializeField] private bool _isSpawn = true;
+    [SerializeField, Min(0.01f)] private float _delayInSeconds;
 
     private ObjectPool<Cube> _pool;
-    private List<Cube> _cubes = new List<Cube>();
 
     private Vector3 RandomPosition => new(
         Random.Range(_minimum.X, _maximum.Z),
@@ -31,29 +30,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Spawn());
-    }
-
-    private void OnEnable()
-    {
-        foreach (Cube cube in _cubes)
-            Subscribe(cube);
-    }
-
-    private void OnDisable()
-    {
-        foreach (Cube cube in _cubes)
-            Unsubscribe(cube);
-    }
-
-    private void Subscribe(Cube cube)
-    {
-        cube.Deactivated += OnRelease;
-    }
-
-    private void Unsubscribe(Cube cube)
-    {
-        cube.Deactivated -= OnRelease;
+        StartCoroutine(Spawning());
     }
 
     private Cube OnCreate()
@@ -66,19 +43,16 @@ public class Spawner : MonoBehaviour
 
     private void OnGet(Cube cube)
     {
-        Subscribe(cube);
-        _cubes.Add(cube);
-        cube.transform.position = RandomPosition;
+        cube.Deactivated += OnRelease;
         cube.Activate(RandomPosition);
     }
 
     private void OnRelease(Cube cube)
     {
-        Unsubscribe(cube);
-        _cubes.Remove(cube);
+        cube.Deactivated -= OnRelease;
     }
 
-    private IEnumerator Spawn()
+    private IEnumerator Spawning()
     {
         WaitForSeconds timeWait = new WaitForSeconds(_delayInSeconds);
 

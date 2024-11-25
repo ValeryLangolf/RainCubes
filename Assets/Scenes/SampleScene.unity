@@ -274,9 +274,9 @@ MonoBehaviour:
   _prefab: {fileID: 3167802097173748854, guid: 94daa02df1bc72140affd2aadd6e43ea, type: 3}
   _minimum: {fileID: 1328817476}
   _maximum: {fileID: 1099919560}
-  _delayInSeconds: 0.5
   _maxSizePool: 1000
   _isSpawn: 1
+  _delayInSeconds: 0.05
 --- !u!4 &531750941
 Transform:
   m_ObjectHideFlags: 0

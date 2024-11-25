@@ -4,7 +4,7 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     [SerializeField] private CubeVisualiser _visualizer;
-    [SerializeField] private bool _isCollision;
+    [SerializeField] private bool _collided;
     [SerializeField] private float _minimumTimeLifeInSeconds;
     [SerializeField] private float _maximumTimeLifeInSeconds;
 
@@ -14,12 +14,12 @@ public class Cube : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (_isCollision)
+        if (_collided)
             return;
 
         if(collision.gameObject.TryGetComponent<Platform>(out _))
         {
-            _isCollision = true;
+            _collided = true;
             _visualizer.Repaint();
 
             Invoke(nameof(Deactivate), TimeLife);
@@ -28,7 +28,7 @@ public class Cube : MonoBehaviour
 
     public void Activate(Vector3 position)
     {
-        _isCollision = false;
+        _collided = false;
         _visualizer.PaintDefault();
         transform.position = position;
         gameObject.SetActive(true);

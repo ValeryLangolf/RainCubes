@@ -13,11 +13,6 @@ public class Spawner : MonoBehaviour
 
     private ObjectPool<Cube> _pool;
 
-    private Vector3 RandomPosition => new(
-        Random.Range(_minimum.X, _maximum.Z),
-        Random.Range(_minimum.Y, _maximum.Z),
-        Random.Range(_minimum.Z, _maximum.Z));
-
     private void Awake()
     {
         _pool = new(
@@ -43,7 +38,13 @@ public class Spawner : MonoBehaviour
     private void OnGet(Cube cube)
     {
         cube.Deactivated += OnRelease;
-        cube.Activate(RandomPosition);
+
+        Vector3 randomPosition = new(
+            Random.Range(_minimum.X, _maximum.Z),
+            Random.Range(_minimum.Y, _maximum.Z),
+            Random.Range(_minimum.Z, _maximum.Z));
+
+        cube.Activate(randomPosition);
     }
 
     private void OnRelease(Cube cube)

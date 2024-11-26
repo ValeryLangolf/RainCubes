@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Cube : MonoBehaviour
@@ -10,8 +11,6 @@ public class Cube : MonoBehaviour
 
     public event Action<Cube> Deactivated;
 
-    public float TimeLife => UnityEngine.Random.Range(_minimumTimeLifeInSeconds, _maximumTimeLifeInSeconds);
-
     private void OnCollisionEnter(Collision collision)
     {
         if (_collided)
@@ -22,8 +21,17 @@ public class Cube : MonoBehaviour
             _collided = true;
             _visualizer.Repaint();
 
-            Invoke(nameof(Deactivate), TimeLife);
+            float timeLife = UnityEngine.Random.Range(_minimumTimeLifeInSeconds, _maximumTimeLifeInSeconds);
+
+            StartCoroutine(DeactivateAfterTime(timeLife));
         }
+    }
+
+    private IEnumerator DeactivateAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        Deactivate();
     }
 
     public void Activate(Vector3 position)

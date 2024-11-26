@@ -7,7 +7,6 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Cube _prefab;
     [SerializeField] private TargetPosition _minimum;
     [SerializeField] private TargetPosition _maximum;
-    [SerializeField] private int _maxSizePool;
     [SerializeField] private bool _isSpawn = true;
     [SerializeField, Min(0.01f)] private float _delayInSeconds;
 
@@ -17,9 +16,7 @@ public class Spawner : MonoBehaviour
     {
         _pool = new(
             OnCreate,
-            OnGet,
-            OnRelease,
-            maxSize: _maxSizePool);
+            OnGet);
     }
 
     private void Start()
@@ -37,7 +34,7 @@ public class Spawner : MonoBehaviour
 
     private void OnGet(Cube cube)
     {
-        cube.Deactivated += OnRelease;
+        cube.Deactivated += Release;
 
         Vector3 randomPosition = new(
             Random.Range(_minimum.X, _maximum.Z),
@@ -47,9 +44,10 @@ public class Spawner : MonoBehaviour
         cube.Activate(randomPosition);
     }
 
-    private void OnRelease(Cube cube)
+    private void Release(Cube cube)
     {
-        cube.Deactivated -= OnRelease;
+        cube.Deactivated -= Release;
+        _pool.Release(cube);
     }
 
     private IEnumerator Spawning()

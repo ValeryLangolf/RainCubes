@@ -1,0 +1,1 @@
+public class BombCounter : ObjectCounter<Bomb> { }

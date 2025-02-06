@@ -7,7 +7,7 @@ public class Bomb : InteractiveObject<Bomb>
     public override void Activate()
     {
         StartCoroutine(DeactivatingRutine());
-        _visuals.StartFade(_timeLife);
+        _visuals.StartFade(TimeLife);
     }
 
     public override void ResetState() =>

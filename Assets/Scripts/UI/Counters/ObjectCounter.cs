@@ -16,6 +16,7 @@ public class ObjectCounter<T> : MonoBehaviour where T : MonoBehaviour, IActivata
         _spawner.OnDeactivated += DecreaseObjectsInScene;
         _pool.OnObjectCreated += IncreaseCreatedObjects;
     }
+
     private void OnDisable()
     {
         _spawner.Spawned -= IncreaseSpawnCount;

@@ -1320,7 +1320,7 @@ MonoBehaviour:
   _spawnerBombs: {fileID: 576242729}
   _spawnerParticles: {fileID: 1727669370}
   _minimum: {fileID: 1328817476}
-  _maximum: {fileID: 0}
+  _maximum: {fileID: 1857811076}
   _isSpawningEnabled: 1
   _delayInSeconds: 0.2
   _detonator: {fileID: 1263619745}
@@ -2247,6 +2247,17 @@ Transform:
   m_Father: {fileID: 1450532928}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1857811076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4932731872737713399, guid: 9bcb95bb1ec8f744aaa66b2b1fd1b9e6, type: 3}
+  m_PrefabInstance: {fileID: 1170793621}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab99fd0a811cc2c4a908e4430a060c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1936175922
 GameObject:
   m_ObjectHideFlags: 0

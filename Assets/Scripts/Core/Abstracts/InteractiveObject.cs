@@ -7,16 +7,21 @@ public abstract class InteractiveObject<T> : MonoBehaviour, IActivatable<T> wher
     [SerializeField] protected float _minimumTimeLifeInSeconds;
     [SerializeField] protected float _maximumTimeLifeInSeconds;
 
-    protected float _timeLife;
+    protected float TimeLife;
+
+    private WaitForSeconds _delay;
 
     public event Action<T> OnDeactivated;
 
-    private void Awake() =>
-        _timeLife = UnityEngine.Random.Range(_minimumTimeLifeInSeconds, _maximumTimeLifeInSeconds);
+    private void Awake()
+    {
+        TimeLife = UnityEngine.Random.Range(_minimumTimeLifeInSeconds, _maximumTimeLifeInSeconds);
+        _delay = new WaitForSeconds(TimeLife);
+    }
 
     protected virtual IEnumerator DeactivatingRutine()
     {
-        yield return new WaitForSeconds(_timeLife);
+        yield return _delay;
 
         NotifyCompletion();
     }
